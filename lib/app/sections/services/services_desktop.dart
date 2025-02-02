@@ -18,7 +18,7 @@ class ServiceDesktopState extends State<ServiceDesktop> {
           .copyWith(bottom: height * 0.2),
       child: Column(
         children: [
-          const CustomSectionHeading(text: '\nWhat We are providing?'),
+          const CustomSectionHeading(text: '\nWhat I can do?'),
           Space.y(1.w)!,
           CustomSectionSubHeading(text: servicesSubHeading),
           Space.y(2.w)!,

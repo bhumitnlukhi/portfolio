@@ -56,13 +56,13 @@ class HomeDesktop extends StatelessWidget {
                         fontSize: 45,
                         fontWeight: FontWeight.w600,
                       )),
-                  SizedBox(height: 10.h,),
+                  SizedBox(height: 2.h,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const Text("Services : ",
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 30,
                             fontWeight: FontWeight.w400,
                           )),
                       AnimatedTextKit(
@@ -84,7 +84,7 @@ class HomeDesktop extends StatelessWidget {
                   ),
                   Space.y(3.w)!,
                   ColorChageButton(
-                    text: 'Get Started',
+                    text: 'DOWNLOAD CV',
                     onTap: () {
                       html.window.open(resume, "pdf");
                     },

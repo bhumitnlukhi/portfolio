@@ -24,8 +24,8 @@ class ContactDesktop extends StatelessWidget {
           const CustomSectionHeading(text: "\nGet in Touch"),
           Space.y(1.w)!,
           const CustomSectionSubHeading(
-            text: "To explore our IT consulting services, feel free to reach out through the links below.",
-               // "If you want to avail my services you can contact me at the links below.",
+            text: "If you want to avail my services you can contact me at the links below.",
+               // "To explore our IT consulting services, feel free to reach out through the links below.",
           ),
           Space.y(2.w)!,
           Container(
@@ -50,7 +50,7 @@ class ContactDesktop extends StatelessWidget {
                           maxLines: 3,
                           style: TextStyle(
                             height: 1.2,
-                            fontSize: 5.sp,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
                             overflow: TextOverflow.ellipsis,
                           ),

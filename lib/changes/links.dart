@@ -1,9 +1,8 @@
 // CV
-const String resume = "https://api.whatsapp.com/send?phone=8140557546";
-    //'https://drive.google.com/file/d/1vWZzjUkVDZsH6Q_RZESs3nSJPLMRYdzO/view?usp=sharing';
-
+const String resume = 'https://drive.google.com/file/d/1vWZzjUkVDZsH6Q_RZESs3nSJPLMRYdzO/view?usp=sharing';
+ //"https://api.whatsapp.com/send?phone=8140557546";
 // Github Link
-const String gitHub = '';
+const String gitHub = 'https://github.com/bhumitnlukhi';
 // Github Link
 const String facebook = 'https://facebook.com/sudeshnb';
 // Github Link
@@ -16,7 +15,7 @@ const String linkedin = 'https://www.linkedin.com/in/bhumitlukhi/';
 // Github Link
 const String buymeacoffee = 'https://www.buymeacoffee.com/sudeshnb';
 // Github Link
-const String instagram = 'https://instagram.com/sudesh_nish';
+const String instagram = 'https://www.instagram.com/invites/contact/?igsh=awlbwxhq5nyq&utm_content=cvhmqoe';
 // socialLinks
 // const List<String> socialLinks = [
 //   "https://facebook.com/sudeshnb",

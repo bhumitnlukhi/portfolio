@@ -28,7 +28,7 @@ class MySite extends StatelessWidget {
           return Sizer(builder: (context, orientation, deviceType) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Best Minders',
+              title: 'Bhumit Lukhi',
               theme: AppTheme.themeData(state.isDarkThemeOn, context),
               initialRoute: "/",
               routes: {"/": (context) => const NChecking()},

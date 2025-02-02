@@ -9,7 +9,7 @@ class ServiceMobile extends StatelessWidget {
 
     return Column(
       children: [
-        const CustomSectionHeading(text: '\nWhat We are providing?'),
+        const CustomSectionHeading(text: '\nWhat I can do?'),
         Space.y(3.w)!,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
