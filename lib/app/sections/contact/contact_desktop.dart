@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/utils/contact_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
-import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/color/colors.dart';
 import 'package:mysite/core/configs/configs.dart';
@@ -9,7 +8,7 @@ import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class ContactDesktop extends StatelessWidget {
-  const ContactDesktop({Key? key}) : super(key: key);
+  const ContactDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,7 @@ class ContactDesktop extends StatelessWidget {
                     ),*/
                   ],
                 ),
-                Container(color: Colors.white.withOpacity(0.2), height: 1),
+                Container(color: Colors.white.withValues(alpha: 0.2), height: 1),
                 Space.y(2.w)!,
                 Wrap(
                     alignment: WrapAlignment.center,

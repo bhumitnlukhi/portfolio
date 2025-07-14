@@ -13,7 +13,7 @@ import 'package:mysite/core/animations/entrance_fader.dart';
 import 'package:mysite/core/configs/configs.dart';
 
 class HomeDesktop extends StatelessWidget {
-  const HomeDesktop({Key? key}) : super(key: key);
+  const HomeDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class HomeDesktop extends StatelessWidget {
                         style: TextStyle(
                           fontSize: isFontSize(context, 20),
                           fontWeight: FontWeight.w400,
-                          color: theme.textColor.withOpacity(0.6),
+                          color: theme.textColor.withValues(alpha: 0.6),
                         )),
                   ),
                   Space.y(3.w)!,

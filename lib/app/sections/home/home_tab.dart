@@ -13,7 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:universal_html/html.dart' as html;
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class HomeTab extends StatelessWidget {
                     style: TextStyle(
                         fontSize: isFontSize(context, 16),
                         fontWeight: FontWeight.w100,
-                        color: theme.textColor.withOpacity(0.6)),
+                        color: theme.textColor.withValues(alpha: 0.6)),
                   ),
                 ),
                 Space.y(2.w)!,

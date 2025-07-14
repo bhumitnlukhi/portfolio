@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/app/widgets/arrow_on_top.dart';
-import 'package:mysite/app/widgets/color_chage_btn.dart';
-import 'package:mysite/changes/links.dart';
 import 'package:mysite/core/apis/links.dart';
 import 'package:mysite/core/color/colors.dart';
 import 'package:mysite/core/configs/app.dart';
@@ -19,14 +17,13 @@ import 'package:mysite/core/theme/cubit/theme_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
-import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
 part 'widgets/_navbar_desktop.dart';
 part 'widgets/_mobile_drawer.dart';
 part 'widgets/_body.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +75,7 @@ class MainPage extends StatelessWidget {
                   width: 200,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: primaryColor.withOpacity(0.5),
+                    color: primaryColor.withValues(alpha: 0.5),
                   ),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(

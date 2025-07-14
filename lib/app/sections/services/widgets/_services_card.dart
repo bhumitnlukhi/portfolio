@@ -3,7 +3,7 @@ part of '../services.dart';
 class _ServiceCard extends StatefulWidget {
   final ServicesUtils service;
 
-  const _ServiceCard({Key? key, required this.service}) : super(key: key);
+  const _ServiceCard({required this.service});
 
   @override
   _ServiceCardState createState() => _ServiceCardState();
@@ -56,7 +56,7 @@ class _ServiceCardState extends State<_ServiceCard> {
               widget.service.description,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: isHover ? whiteColor.withOpacity(0.8) : theme.textColor,
+                color: isHover ? whiteColor.withValues(alpha: 0.8) : theme.textColor,
                 fontWeight: FontWeight.w200,
                 fontSize: 13,
               ),
