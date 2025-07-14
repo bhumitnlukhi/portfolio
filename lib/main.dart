@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'my_site.dart';
+import 'package:mysite/app_entry.dart';
+import 'bootstrap.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MySite());
+  bootstrap(() => const AppEntry());
 }

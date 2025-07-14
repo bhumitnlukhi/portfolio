@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ArrowOnTop extends StatefulWidget {
-  const ArrowOnTop({super.key});
+  final double height;
+
+  const ArrowOnTop({super.key,required this.height});
 
   @override
   ArrowOnTopState createState() => ArrowOnTopState();
@@ -25,7 +27,7 @@ class ArrowOnTopState extends State<ArrowOnTop> {
         offset: const Offset(0, 20),
         child: Padding(
           padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
+              EdgeInsets.only(top: widget.height * 0.025),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

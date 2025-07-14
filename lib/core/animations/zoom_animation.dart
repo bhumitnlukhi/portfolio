@@ -74,10 +74,10 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                theme.secondaryColor,
-                theme.secondaryColor.withValues(alpha: 0),
-                theme.primaryColor..withValues(alpha: 0.1),
-                theme.primaryColor
+                theme.colorScheme.secondary,
+                theme.colorScheme.secondary.withValues(alpha: 0),
+                theme.colorScheme.primary.withValues(alpha: 0.1),
+                theme.colorScheme.primary
               ],
               stops: const [
                 0.2,
