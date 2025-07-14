@@ -1,69 +1,67 @@
 import 'package:flutter/material.dart';
 
 class EntranceFader extends StatefulWidget {
-  /// Child to be animated on entrance
   final Widget child;
-
-  /// Delay after which the animation will start
   final Duration delay;
-
-  /// Duration of entrance animation
   final Duration duration;
-
-  /// Starting point from which the widget will fade to its default position
   final Offset offset;
+  final Curve curve;
 
   const EntranceFader({
     super.key,
     required this.child,
     this.delay = const Duration(milliseconds: 0),
-    this.duration = const Duration(milliseconds: 400),
+    this.duration = const Duration(milliseconds: 600),
     this.offset = const Offset(0.0, 32.0),
+    this.curve = Curves.easeOutExpo,
   });
 
   @override
-  EntranceFaderState createState() {
-    return EntranceFaderState();
-  }
+  State<EntranceFader> createState() => _EntranceFaderState();
 }
 
-class EntranceFaderState extends State<EntranceFader>
+class _EntranceFaderState extends State<EntranceFader>
     with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
-  Animation? _dxAnimation;
-  Animation? _dyAnimation;
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(vsync: this, duration: widget.duration);
-    _dxAnimation =
-        Tween(begin: widget.offset.dx, end: 0.0).animate(_controller!);
-    _dyAnimation =
-        Tween(begin: widget.offset.dy, end: 0.0).animate(_controller!);
+
+    final curvedAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: widget.curve,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: widget.offset / 100, // Scale offset for a natural slide
+      end: Offset.zero,
+    ).animate(curvedAnimation);
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(curvedAnimation);
+
     Future.delayed(widget.delay, () {
-      if (mounted) {
-        _controller!.forward();
-      }
+      if (mounted) _controller.forward();
     });
   }
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller!,
-      builder: (context, child) => Opacity(
-        opacity: _controller!.value,
-        child: Transform.translate(
-          offset: Offset(_dxAnimation!.value, _dyAnimation!.value),
-          child: widget.child,
-        ),
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: widget.child,
       ),
     );
   }

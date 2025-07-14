@@ -10,18 +10,16 @@ class CustomSectionHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      desktop: Text(
-        text,
-        style: const TextStyle(fontSize: 56),
-      ),
-      tablet: Text(
-        text,
-        style: const TextStyle(fontSize: 36),
-      ),
-      mobile: Text(
-        text,
-        style: const TextStyle(fontSize: 26),
-      ),
+      desktop: _buildHeading(text, 56),
+      tablet: _buildHeading(text, 36),
+      mobile: _buildHeading(text, 26),
+    );
+  }
+
+  Widget _buildHeading(String text, double fontSize) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: fontSize),
     );
   }
 }
@@ -33,31 +31,22 @@ class CustomSectionSubHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final textColor = Theme.of(context).textColor.withOpacity(0.6);
+
     return Responsive(
-      desktop: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: theme.textColor.withValues(alpha: 0.6),
-          fontSize: 18,
-        ),
-      ),
-      tablet: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: theme.textColor.withValues(alpha: 0.6),
-          fontSize: 16,
-        ),
-      ),
-      mobile: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: theme.textColor.withValues(alpha: 0.6),
-          fontSize: 13,
-        ),
+      desktop: _buildSubHeading(text, 18, textColor),
+      tablet: _buildSubHeading(text, 16, textColor),
+      mobile: _buildSubHeading(text, 13, textColor),
+    );
+  }
+
+  Widget _buildSubHeading(String text, double fontSize, Color color) {
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: color,
       ),
     );
   }

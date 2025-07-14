@@ -8,53 +8,35 @@ class NChecking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ConnectedBloc, ConnectedState>(
-      listener: (context, state) {
-        // if (state is ConnectedSucessState) {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //       const SnackBar(content: Text('Internet Connected')));
-        // } else if (state is ConnectedFailureState) {
-        //   ScaffoldMessenger.of(context)
-        //       .showSnackBar(const SnackBar(content: Text('Internet Lost')));
-        // }
-      },
+    return BlocBuilder<ConnectedBloc, ConnectedState>(
       builder: (context, state) {
         if (state is ConnectedSucessState) {
           return const MainPage();
-          // return const MainScreen();
-        }
-        // else if (state is ConnectedFailureState) {
-        //   return const NoConnectionErorr();
-        // }
-        else {
-          // return Container();
-          // TODO
-          // return const NoConnectionErorr();
-          return const MainPage();
+        } else if (state is ConnectedFailureState) {
+          return const NoConnectionError();
+        } else {
+          // While state is loading or uninitialized, show loader or splash
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
         }
       },
     );
   }
 }
 
-class NoConnectionErorr extends StatelessWidget {
-  const NoConnectionErorr({super.key});
+class NoConnectionError extends StatelessWidget {
+  const NoConnectionError({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // LoadingAnimationWidget.staggeredDotsWave(
-            //     color: primaryColor, size: 50.0),
-            // SizedBox(height: 3.h),
-            Text("Connection failed!"),
-          ],
+        child: Text(
+          "Connection failed!",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 }
-// TODO

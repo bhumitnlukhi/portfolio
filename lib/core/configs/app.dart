@@ -10,7 +10,6 @@ class App {
     // AppDimensions.init();
     // AppTheme.init(context);
     // UIProps.init();
-    Space.init();
     AppText.init();
     // isLtr = Directionality.of(context) == TextDirection.ltr;
   }

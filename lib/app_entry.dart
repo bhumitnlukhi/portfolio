@@ -24,7 +24,7 @@ class AppEntry extends StatelessWidget {
           builder: (_, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: "Bhumit Lukhi | Portfolio",
+              title: "Bhumit Lukhi",
               theme: AppTheme.themeData(state.isDarkThemeOn, context),
               home: const MySite(),
             );

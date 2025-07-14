@@ -6,226 +6,120 @@ import 'package:mysite/core/res/responsive.dart';
 class ColorChageButton extends StatelessWidget {
   final String text;
   final Function() onTap;
+
   const ColorChageButton({super.key, required this.text, required this.onTap});
-  @override
+
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      desktop: DesktopCCButton(text: text, onTap: onTap),
-      tablet: TabCCButton(text: text, onTap: onTap),
-      mobile: MobileCCButton(text: text, onTap: onTap),
+      desktop: HoverAnimatedButton(
+        text: text,
+        onTap: onTap,
+        height: 65,
+        width: 250,
+        fontSize: 18,
+        borderWidth: 3,
+        borderRadius: 6,
+      ),
+      tablet: HoverAnimatedButton(
+        text: text,
+        onTap: onTap,
+        height: 50,
+        width: 200,
+        fontSize: 16,
+        borderWidth: 2,
+        borderRadius: 5,
+      ),
+      mobile: HoverAnimatedButton(
+        text: text,
+        onTap: onTap,
+        height: 35,
+        width: 125,
+        fontSize: 13,
+        borderWidth: 1.5,
+        borderRadius: 3,
+      ),
     );
   }
 }
 
-class MobileCCButton extends StatefulWidget {
+class HoverAnimatedButton extends StatefulWidget {
   final String text;
   final Function() onTap;
-  const MobileCCButton({super.key, required this.text, required this.onTap});
-  @override
+  final double height;
+  final double width;
+  final double fontSize;
+  final double borderRadius;
+  final double borderWidth;
 
-  // ignore: library_private_types_in_public_api
-  _MobileCCButtonState createState() => _MobileCCButtonState();
-}
-
-class _MobileCCButtonState extends State<MobileCCButton> {
-  double _animatedWidth = 0.0;
-  bool isHover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    // theme
-    var theme = Theme.of(context);
-
-    return Stack(
-      children: [
-        if (!isHover)
-          Container(
-            height: 35,
-            width: 125,
-            decoration: BoxDecoration(
-              border: Border.all(color: theme.textColor, width: 1.5),
-              borderRadius: BorderRadius.circular(3),
-            ),
-          ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: 35,
-          width: _animatedWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3),
-            gradient: pinkpurple,
-          ),
-        ),
-        InkWell(
-          onHover: (value) {
-            setState(() {
-              isHover = !isHover;
-              _animatedWidth = value ? 125 : 0.0;
-            });
-          },
-          onTap: () {
-            setState(() => _animatedWidth = 125);
-            widget.onTap();
-          },
-          child: SizedBox(
-            height: 35,
-            width: 125,
-            child: Center(
-              child: Text(
-                widget.text.toUpperCase(),
-                style: TextStyle(
-                  color: theme.textColor,
-                  fontSize: 13,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class TabCCButton extends StatefulWidget {
-  final String text;
-  final Function() onTap;
-  const TabCCButton({
+  const HoverAnimatedButton({
     super.key,
     required this.text,
     required this.onTap,
+    required this.height,
+    required this.width,
+    required this.fontSize,
+    required this.borderRadius,
+    required this.borderWidth,
   });
-  @override
 
-  // ignore: library_private_types_in_public_api
-  _TabCCButtonState createState() => _TabCCButtonState();
+  @override
+  State<HoverAnimatedButton> createState() => _HoverAnimatedButtonState();
 }
 
-class _TabCCButtonState extends State<TabCCButton> {
-  double _animatedWidth = 0.0;
-  bool isHover = false;
+class _HoverAnimatedButtonState extends State<HoverAnimatedButton> {
+  bool _isHover = false;
 
   @override
   Widget build(BuildContext context) {
-    // theme
-    var theme = Theme.of(context);
-
-    return Stack(
-      children: [
-        if (!isHover)
-          Container(
-            height: 50,
-            width: 200,
-            decoration: BoxDecoration(
-              border: Border.all(color: theme.textColor, width: 2),
-              borderRadius: BorderRadius.circular(5),
+    final theme = Theme.of(context);
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHover = true),
+      onExit: (_) => setState(() => _isHover = false),
+      child: GestureDetector(
+        onTap: () {
+          setState(() => _isHover = true); // brief fill animation
+          widget.onTap();
+        },
+        child: Stack(
+          children: [
+            Container(
+              height: widget.height,
+              width: widget.width,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: theme.textColor,
+                  width: widget.borderWidth,
+                ),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
             ),
-          ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: 50,
-          width: _animatedWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            gradient: pinkpurple,
-          ),
-        ),
-        InkWell(
-            onHover: (value) {
-              setState(() {
-                isHover = !isHover;
-                _animatedWidth = value ? 200 : 0.0;
-              });
-            },
-            onTap: () {
-              setState(() => _animatedWidth = 200);
-              widget.onTap();
-            },
-            child: SizedBox(
-              height: 50,
-              width: 200,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              height: widget.height,
+              width: _isHover ? widget.width : 0,
+              decoration: BoxDecoration(
+                gradient: pinkpurple,
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+            ),
+            SizedBox(
+              height: widget.height,
+              width: widget.width,
               child: Center(
                 child: Text(
                   widget.text.toUpperCase(),
                   style: TextStyle(
-                    color: theme.textColor,
-                    fontSize: 16,
+                    fontSize: widget.fontSize,
+                    color: _isHover ? whiteColor : theme.textColor,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-            )),
-      ],
-    );
-  }
-}
-
-class DesktopCCButton extends StatefulWidget {
-  final String text;
-  final Function() onTap;
-  const DesktopCCButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-  });
-  @override
-
-  // ignore: library_private_types_in_public_api
-  _DesktopCCButtonState createState() => _DesktopCCButtonState();
-}
-
-class _DesktopCCButtonState extends State<DesktopCCButton> {
-  double _animatedWidth = 0.0;
-  bool isHover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Stack(
-      children: [
-        if (!isHover)
-          Container(
-            height: 65,
-            width: 250,
-            decoration: BoxDecoration(
-              border: Border.all(color: theme.textColor, width: 3),
-              borderRadius: BorderRadius.circular(6),
             ),
-          ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: 65,
-          width: _animatedWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            gradient: pinkpurple,
-          ),
+          ],
         ),
-        InkWell(
-          onHover: (value) {
-            setState(() {
-              isHover = !isHover;
-              _animatedWidth = value ? 250 : 0.0;
-            });
-          },
-          onTap: () {
-            setState(() => _animatedWidth = 250);
-            widget.onTap();
-          },
-          child: SizedBox(
-            height: 65,
-            width: 250,
-            child: Center(
-              child: Text(
-                widget.text.toUpperCase(),
-                style: TextStyle(
-                  color: isHover ? whiteColor : theme.textColor,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/widgets/custom_outline.dart';
-import 'package:mysite/core/theme/app_theme.dart';
 
 class ZoomAnimations extends StatefulWidget {
   const ZoomAnimations({super.key});
@@ -11,27 +10,28 @@ class ZoomAnimations extends StatefulWidget {
 
 class _ZoomAnimationsState extends State<ZoomAnimations>
     with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late AnimationController _controller2;
+  late final AnimationController _sizeController;
+  late final AnimationController _alignController;
   late final Animation<AlignmentGeometry> _alignAnimation;
-  late Animation sizeAnimation;
+  late final Animation<double> _sizeAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    _sizeController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..forward();
 
-    sizeAnimation = Tween(begin: 0.0, end: 0.2).animate(CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.40, 0.75, curve: Curves.easeOut)));
-    _controller.forward();
-    _controller.addListener(() {
-      setState(() {});
-    });
-    //
-    _controller2 = AnimationController(
+    _sizeAnimation = Tween<double>(begin: 0.0, end: 0.2).animate(
+      CurvedAnimation(
+        parent: _sizeController,
+        curve: const Interval(0.40, 0.75, curve: Curves.easeOut),
+      ),
+    );
+
+    _alignController = AnimationController(
       duration: const Duration(milliseconds: 3000),
       vsync: this,
     )..repeat(reverse: true);
@@ -41,7 +41,7 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
       end: Alignment.bottomCenter,
     ).animate(
       CurvedAnimation(
-        parent: _controller2,
+        parent: _alignController,
         curve: Curves.easeInOutCubic,
       ),
     );
@@ -49,55 +49,56 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
 
   @override
   void dispose() {
-    _controller.dispose();
-    _controller2.dispose();
+    _sizeController.dispose();
+    _alignController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    var theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
 
-    return SizedBox(
-      width: size.width / 4.5,
-      height: size.width / 4,
-      child: AlignTransition(
-        alignment: _alignAnimation,
-        child: CustomOutline(
-          strokeWidth: 5,
-          radius: size.width * 0.2,
-          padding: const EdgeInsets.all(5),
-          width: size.width * sizeAnimation.value,
-          height: size.width * sizeAnimation.value,
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.secondary,
-                theme.colorScheme.secondary.withValues(alpha: 0),
-                theme.colorScheme.primary.withValues(alpha: 0.1),
-                theme.colorScheme.primary
-              ],
-              stops: const [
-                0.2,
-                0.4,
-                0.6,
-                1
-              ]),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black.withValues(alpha: 0.8),
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                alignment: Alignment.bottomLeft,
-                image: AssetImage('assets/imgs/bhumit_lukhi.jpg'),
+    return AnimatedBuilder(
+      animation: _sizeController,
+      builder: (_, __) {
+        return SizedBox(
+          width: size.width / 4.5,
+          height: size.width / 4,
+          child: AlignTransition(
+            alignment: _alignAnimation,
+            child: CustomOutline(
+              strokeWidth: 5,
+              radius: size.width * 0.2,
+              padding: const EdgeInsets.all(5),
+              width: size.width * _sizeAnimation.value,
+              height: size.width * _sizeAnimation.value,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  theme.colorScheme.secondary,
+                  theme.colorScheme.secondary.withAlpha(0),
+                  theme.colorScheme.primary.withAlpha(25),
+                  theme.colorScheme.primary,
+                ],
+                stops: const [0.2, 0.4, 0.6, 1],
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black.withValues(alpha: 0.8),
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.bottomLeft,
+                    image: AssetImage('assets/imgs/bhumit_lukhi.jpg'),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

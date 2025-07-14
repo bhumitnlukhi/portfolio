@@ -17,7 +17,8 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: 70.h,
       child: Stack(
@@ -37,23 +38,30 @@ class HomeTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Greeting with waving hand
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       hellotag,
-                      style: AppText.h3!
-                          .copyWith(fontSize: isFontSize(context, 18)),
+                      style: AppText.h3!.copyWith(
+                        fontSize: isFontSize(context, 18),
+                      ),
                     ),
                     EntranceFader(
                       offset: const Offset(0, 0),
                       delay: const Duration(seconds: 2),
                       duration: const Duration(milliseconds: 800),
-                      child: Image.asset(StaticImage.hi, height: 10.sp),
+                      child: Image.asset(
+                        StaticImage.hi,
+                        height: 10.sp,
+                      ),
                     ),
                   ],
                 ),
                 Space.y(1.w)!,
+
+                // Your name
                 Text(
                   yourname,
                   style: TextStyle(
@@ -61,6 +69,8 @@ class HomeTab extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
+                // Services animated row
                 EntranceFader(
                   offset: const Offset(-10, 0),
                   delay: const Duration(seconds: 1),
@@ -83,17 +93,22 @@ class HomeTab extends StatelessWidget {
                   ),
                 ),
                 Space.y(1.5.w)!,
+
+                // Mini description
                 Padding(
                   padding: EdgeInsets.only(right: 50.w),
                   child: Text(
                     miniDescription,
                     style: TextStyle(
-                        fontSize: isFontSize(context, 16),
-                        fontWeight: FontWeight.w100,
-                        color: theme.textColor.withValues(alpha: 0.6)),
+                      fontSize: isFontSize(context, 16),
+                      fontWeight: FontWeight.w100,
+                      color: theme.textColor.withValues(alpha: 0.6),
+                    ),
                   ),
                 ),
                 Space.y(2.w)!,
+
+                // Download CV Button
                 ColorChageButton(
                   text: 'DOWNLOAD CV',
                   onTap: () {

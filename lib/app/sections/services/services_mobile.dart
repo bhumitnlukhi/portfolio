@@ -5,7 +5,6 @@ class ServiceMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         const CustomSectionHeading(text: '\nWhat I can do?'),
@@ -17,21 +16,21 @@ class ServiceMobile extends StatelessWidget {
         Space.y(5.w)!,
         CarouselSlider.builder(
           itemCount: servicesUtils.length,
-          itemBuilder: (BuildContext context, int itemIndex, int i) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 0.5.w),
-            child: _ServiceCard(service: servicesUtils[i]),
+          itemBuilder: (context, index, _) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 1.h),
+            child: _ServiceCard(service: servicesUtils[index]),
           ),
           options: CarouselOptions(
-            viewportFraction: 0.6,
-            height: 300,
+            height: 45.h,
+            viewportFraction: 0.7,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 5),
-            enlargeCenterPage: true,
-            autoPlayCurve: Curves.fastOutSlowIn,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayCurve: Curves.easeInOut,
+            enlargeCenterPage: true,
             enableInfiniteScroll: false,
           ),
-        )
+        ),
       ],
     );
   }

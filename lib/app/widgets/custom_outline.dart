@@ -1,83 +1,90 @@
 import 'package:flutter/material.dart';
 
 class CustomOutline extends StatelessWidget {
-  final _GradientPainter _painter;
-  final Widget _child;
+  final double strokeWidth;
+  final double radius;
+  final Gradient gradient;
+  final Widget child;
+  final double width;
+  final double height;
+  final EdgeInsetsGeometry padding;
 
-  final double _width;
-  final double _height;
-  final EdgeInsetsGeometry _padding;
-
-  CustomOutline({
+  const CustomOutline({
     super.key,
-    required double strokeWidth,
-    required double radius,
-    required Gradient gradient,
-    required Widget child,
-    required double width,
-    required double height,
-    required EdgeInsetsGeometry padding,
-  })  : _painter = _GradientPainter(
-            strokeWidth: strokeWidth, radius: radius, gradient: gradient),
-        _child = child,
-        _width = width,
-        _height = height,
-        _padding = padding;
+    required this.strokeWidth,
+    required this.radius,
+    required this.gradient,
+    required this.child,
+    required this.width,
+    required this.height,
+    required this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _painter,
+      painter: _GradientPainter(
+        strokeWidth: strokeWidth,
+        radius: radius,
+        gradient: gradient,
+      ),
       child: Container(
-        width: _width,
-        height: _height,
-        // ignore: sort_child_properties_last
-        child: _child,
-        padding: _padding,
+        width: width,
+        height: height,
+        padding: padding,
+        child: child,
       ),
     );
   }
 }
 
 class _GradientPainter extends CustomPainter {
-  final Paint _paint = Paint();
-  final double _radius;
-  final double _strokeWidth;
-  final Gradient _gradient;
+  final double strokeWidth;
+  final double radius;
+  final Gradient gradient;
 
-  _GradientPainter(
-      {required double strokeWidth,
-      required double radius,
-      required Gradient gradient})
-      : _strokeWidth = strokeWidth,
-        _radius = radius,
-        _gradient = gradient;
+  _GradientPainter({
+    required this.strokeWidth,
+    required this.radius,
+    required this.gradient,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    // create outer rectangle equals size
-    Rect outerRect = Offset.zero & size;
-    var outerRRect = RRect.fromRectAndRadius(
+    final Rect outerRect = Offset.zero & size;
+    final RRect outerRRect = RRect.fromRectAndRadius(
       outerRect,
-      Radius.circular(_radius),
+      Radius.circular(radius),
     );
 
-    // create inner rectangle smaller by strokeWidth
-    Rect innerRect = Rect.fromLTWH(_strokeWidth, _strokeWidth,
-        size.width - _strokeWidth * 2, size.height - _strokeWidth * 2);
-    var innerRRect = RRect.fromRectAndRadius(
-        innerRect, Radius.circular(_radius - _strokeWidth));
+    final Rect innerRect = Rect.fromLTWH(
+      strokeWidth,
+      strokeWidth,
+      size.width - strokeWidth * 2,
+      size.height - strokeWidth * 2,
+    );
 
-    // apply gradient shader
-    _paint.shader = _gradient.createShader(outerRect);
+    final RRect innerRRect = RRect.fromRectAndRadius(
+      innerRect,
+      Radius.circular(radius - strokeWidth),
+    );
 
-    // create difference between outer and inner paths and draw it
-    Path path1 = Path()..addRRect(outerRRect);
-    Path path2 = Path()..addRRect(innerRRect);
-    var path = Path.combine(PathOperation.difference, path1, path2);
-    canvas.drawPath(path, _paint);
+    final Paint paint = Paint()
+      ..shader = gradient.createShader(outerRect)
+      ..style = PaintingStyle.fill;
+
+    final Path outerPath = Path()..addRRect(outerRRect);
+    final Path innerPath = Path()..addRRect(innerRRect);
+
+    final Path borderPath = Path.combine(
+      PathOperation.difference,
+      outerPath,
+      innerPath,
+    );
+
+    canvas.drawPath(borderPath, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => oldDelegate != this;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

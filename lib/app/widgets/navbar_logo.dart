@@ -7,24 +7,21 @@ class NavBarLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // theme
-    var theme = Theme.of(context);
-    //
-    var textSty = TextStyle(
+    final theme = Theme.of(context);
+    final isDesktop = Responsive.isDesktop(context);
+
+    final textStyle = TextStyle(
       color: theme.textColor,
       fontWeight: FontWeight.w100,
-      fontSize: Responsive.isDesktop(context) ? 32 : 20,
+      fontSize: isDesktop ? 32 : 20,
     );
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text("< ", style: textSty),
-        Text("Bhumit Lukhi", style: textSty),
-        Text(
-          Responsive.isDesktop(context) ? " />\t\t" : " />",
-          style: textSty,
-        )
+        Text("< ", style: textStyle),
+        Text("Bhumit Lukhi", style: textStyle),
+        Text(isDesktop ? " />\t\t" : " />", style: textStyle),
       ],
     );
   }

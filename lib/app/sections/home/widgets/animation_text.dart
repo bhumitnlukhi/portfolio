@@ -3,55 +3,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/configs/configs.dart';
 
-List<TyperAnimatedText> desktopList = [
-  TyperAnimatedText(animationtxt1,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 30,overflow: TextOverflow.ellipsis)),
-  TyperAnimatedText(animationtxt2,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 30,overflow: TextOverflow.ellipsis)),
-  TyperAnimatedText(animationtxt3,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 30,overflow: TextOverflow.ellipsis)),
-  TyperAnimatedText(animationtxt4,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 30,overflow: TextOverflow.ellipsis)),
-  TyperAnimatedText(animationtxt5,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 30,overflow: TextOverflow.ellipsis))
-];
+/// Common function to generate TyperAnimatedText list
+List<TyperAnimatedText> buildAnimatedTexts({
+  required double fontSize,
+  Duration speed = const Duration(milliseconds: 50),
+}) {
+  final List<String> animations = [
+    animationtxt1,
+    animationtxt2,
+    animationtxt3,
+    animationtxt4,
+    animationtxt5,
+  ];
 
-List<TyperAnimatedText> tabList = [
-  TyperAnimatedText(animationtxt1,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 20)),
-  TyperAnimatedText(animationtxt2,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 20)),
-  TyperAnimatedText(animationtxt3,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 20)),
-  TyperAnimatedText(animationtxt4,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 20)),
-  TyperAnimatedText(animationtxt5,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 20))
-];
-List<TyperAnimatedText> mobileList = [
-  TyperAnimatedText(animationtxt1,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 16)),
-  TyperAnimatedText(animationtxt2,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 16)),
-  TyperAnimatedText(animationtxt3,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 16)),
-  TyperAnimatedText(animationtxt4,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 16)),
-  TyperAnimatedText(animationtxt5,
-      speed: const Duration(milliseconds: 50),
-      textStyle: AppText.h2!.copyWith(fontSize: 16))
-];
+  return animations.map((text) {
+    return TyperAnimatedText(
+      text,
+      speed: speed,
+      textStyle: AppText.h2!.copyWith(
+        fontSize: fontSize,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }).toList();
+}
+
+/// Use these wherever needed
+final List<TyperAnimatedText> desktopList = buildAnimatedTexts(fontSize: 30);
+final List<TyperAnimatedText> tabList = buildAnimatedTexts(fontSize: 20);
+final List<TyperAnimatedText> mobileList = buildAnimatedTexts(fontSize: 16);

@@ -7,26 +7,57 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+
     return Container(
-      margin: EdgeInsets.fromLTRB(0, height * 0.05, 0, 0),
-      height: height * 0.07,
-      width: width,
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text("Developed by "),
-            InkWell(
-              onTap: () => openURL(gitHub),
-              child: const Text(
-                " Bhumit Lukhi 💙",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const Text(" © 2024"),
-          ],
+      margin: EdgeInsets.only(top: size.height * 0.05),
+      height: size.height * 0.07,
+      width: size.width,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Developed by ",
+            style: TextStyle(color: theme.textTheme.bodyMedium?.color),
+          ),
+          _GitHubLink(),
+          Text(
+            " © 2024",
+            style: TextStyle(color: theme.textTheme.bodyMedium?.color),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GitHubLink extends StatefulWidget {
+  @override
+  State<_GitHubLink> createState() => _GitHubLinkState();
+}
+
+class _GitHubLinkState extends State<_GitHubLink> {
+  bool isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => isHovering = true),
+      onExit: (_) => setState(() => isHovering = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => openURL(gitHub),
+        child: Text(
+          "Bhumit Lukhi 💙",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: isHovering
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).textTheme.bodyMedium?.color,
+          ),
         ),
       ),
     );

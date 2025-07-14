@@ -8,17 +8,24 @@ import 'package:sizer/sizer.dart';
 class ArrowOnTop extends StatefulWidget {
   final double height;
 
-  const ArrowOnTop({super.key,required this.height});
+  const ArrowOnTop({super.key, required this.height});
 
   @override
-  ArrowOnTopState createState() => ArrowOnTopState();
+  State<ArrowOnTop> createState() => _ArrowOnTopState();
 }
 
-class ArrowOnTopState extends State<ArrowOnTop> {
+class _ArrowOnTopState extends State<ArrowOnTop> {
   bool isHover = false;
+
+  void _onHover(bool hover) {
+    if (isHover != hover) {
+      setState(() => isHover = hover);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final scrollProvider = Provider.of<ScrollProvider>(context);
+    final scrollProvider = Provider.of<ScrollProvider>(context, listen: false);
 
     return Positioned(
       bottom: 100,
@@ -26,45 +33,37 @@ class ArrowOnTopState extends State<ArrowOnTop> {
       child: EntranceFader(
         offset: const Offset(0, 20),
         child: Padding(
-          padding:
-              EdgeInsets.only(top: widget.height * 0.025),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(8.0),
-                onTap: () => scrollProvider.jumpTo(0),
-                onHover: (isHovering) {
-                  if (isHovering) {
-                    setState(() => isHover = true);
-                  } else {
-                    setState(() => isHover = false);
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: isHover ? buttonGradi : pinkpurple,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      bottomLeft: Radius.circular(8.0),
-                    ),
-                    boxShadow: isHover
-                        ? [
-                            const BoxShadow(
-                              blurRadius: 12.0,
-                              offset: Offset(2.0, 3.0),
-                            )
-                          ]
-                        : null,
+          padding: EdgeInsets.only(top: widget.height * 0.025),
+          child: MouseRegion(
+            onEnter: (_) => _onHover(true),
+            onExit: (_) => _onHover(false),
+            child: GestureDetector(
+              onTap: () => scrollProvider.jumpTo(0),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                decoration: BoxDecoration(
+                  gradient: isHover ? buttonGradi : pinkpurple,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(8.0),
                   ),
-                  child: Icon(
-                    Icons.arrow_drop_up_outlined,
-                    color: isHover ? blackColor : whiteColor,
-                    size: 5.h,
-                  ),
+                  boxShadow: isHover
+                      ? [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(2, 3),
+                    )
+                  ]
+                      : [],
+                ),
+                child: Icon(
+                  Icons.arrow_drop_up_outlined,
+                  color: isHover ? blackColor : whiteColor,
+                  size: 5.h,
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),
