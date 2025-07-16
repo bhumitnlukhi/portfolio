@@ -7,6 +7,13 @@ import 'package:mysite/app/widgets/footer.dart';
 
 class BodyUtils {
   static const List<Widget> views = [
+    Offstage(
+      offstage: true,
+      child: Text(
+        '🤖 🍏 🚀 💙',
+        style: TextStyle(fontFamilyFallback: ['Segoe UI Emoji']),
+      ),
+    ),
     HomePage(),
     Services(),
     Portfolio(),

@@ -14,10 +14,10 @@ class ServiceDesktop extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CustomSectionHeading(text: '\nWhat I can do?'),
-          Space.y(1.w)!,
+          const CustomSectionHeading(text: '\nMy Core Specializations'),
+          Space.y(1.w),
           CustomSectionSubHeading(text: servicesSubHeading),
-          Space.y(2.w)!,
+          Space.y(2.w),
           LayoutBuilder(
             builder: (context, constraints) {
               return Wrap(

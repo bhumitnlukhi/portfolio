@@ -20,14 +20,14 @@ class HomeDesktop extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 13.h),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Left Section (Text + Button)
           SizedBox(
-            width: 60.w,
+            width: 65.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,27 +52,28 @@ class HomeDesktop extends StatelessWidget {
                   ],
                 ),
 
-                Space.y(0.5.w)!,
+               // Space.y(0.5.w),
+                SizedBox(height: 5.h),
 
                 /// Your Name
                 Text(
                   yourname,
                   style: const TextStyle(
-                    fontSize: 45,
+                    fontSize: 40,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
 
-                SizedBox(height: 2.h),
+                SizedBox(height: 5.h),
 
                 /// Services Text with AnimatedTextKit
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     const Text(
-                      "Services : ",
+                      "Skills in Action : ",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 28,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -89,7 +90,7 @@ class HomeDesktop extends StatelessWidget {
                   ],
                 ),
 
-                Space.y(1.5.w)!,
+                Space.y(1.5.w),
 
                 /// Description Text
                 Padding(
@@ -97,18 +98,18 @@ class HomeDesktop extends StatelessWidget {
                   child: Text(
                     miniDescription,
                     style: TextStyle(
-                      fontSize: isFontSize(context, 20),
+                      fontSize: isFontSize(context, 18),
                       fontWeight: FontWeight.w400,
                       color: theme.textColor.withValues(alpha: 0.6),
                     ),
                   ),
                 ),
 
-                Space.y(3.w)!,
+                Space.y(3.w),
 
                 /// Download CV Button
                 ColorChageButton(
-                  text: 'DOWNLOAD CV',
+                  text: '📄  View My CV',
                   onTap: () {
                     html.window.open(resume, "pdf");
                   },

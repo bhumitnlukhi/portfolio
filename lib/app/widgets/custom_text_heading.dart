@@ -31,7 +31,7 @@ class CustomSectionSubHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).textColor.withOpacity(0.6);
+    final textColor = Theme.of(context).textColor.withValues(alpha: 0.6);
 
     return Responsive(
       desktop: _buildSubHeading(text, 18, textColor),

@@ -77,7 +77,7 @@ class HomeMobile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ColorChageButton(
-                text: 'DOWNLOAD CV',
+                text: '📄  View My CV',
                 onTap: () => html.window.open(resume, "pdf"),
               ),
               const EntranceFader(

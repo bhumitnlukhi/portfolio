@@ -20,15 +20,17 @@ List<TyperAnimatedText> buildAnimatedTexts({
     return TyperAnimatedText(
       text,
       speed: speed,
-      textStyle: AppText.h2!.copyWith(
+      textStyle: AppText.h2.copyWith(
         fontSize: fontSize,
         overflow: TextOverflow.ellipsis,
+        fontFamilyFallback: ['Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji'],
+
       ),
     );
   }).toList();
 }
 
 /// Use these wherever needed
-final List<TyperAnimatedText> desktopList = buildAnimatedTexts(fontSize: 30);
+final List<TyperAnimatedText> desktopList = buildAnimatedTexts(fontSize: 28);
 final List<TyperAnimatedText> tabList = buildAnimatedTexts(fontSize: 20);
 final List<TyperAnimatedText> mobileList = buildAnimatedTexts(fontSize: 16);

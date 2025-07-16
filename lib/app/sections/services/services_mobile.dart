@@ -7,13 +7,13 @@ class ServiceMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomSectionHeading(text: '\nWhat I can do?'),
-        Space.y(3.w)!,
+        const CustomSectionHeading(text: '\nMy Core Specializations'),
+        Space.y(3.w),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: CustomSectionSubHeading(text: servicesSubHeading),
         ),
-        Space.y(5.w)!,
+        Space.y(5.w),
         CarouselSlider.builder(
           itemCount: servicesUtils.length,
           itemBuilder: (context, index, _) => Padding(

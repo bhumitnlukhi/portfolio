@@ -13,7 +13,7 @@ class ServicesUtils {
 
 List<ServicesUtils> servicesUtils = [
   ServicesUtils(
-    name: 'Flutter App Development',
+    name: 'Flutter App Engineering',
     icon: 'assets/icons/flutter.svg',
     description:
         "Are you interested in the great Mobile app? Let's make it a reality.",
